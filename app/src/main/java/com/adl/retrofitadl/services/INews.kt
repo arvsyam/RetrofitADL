@@ -12,7 +12,7 @@ interface INews {
     fun getAll(): Call<NewsResponse>
 
     @Headers("X-Api-Key:FC35B899DC137F0CB6B56035FA37068A")
-    @POST("api/adl_news/add/")
+    @POST("api/adl_news/add")
     fun saveNews(@Body newsItem: AdlNewsItem):Call<AdlNewsItem>
 
 
