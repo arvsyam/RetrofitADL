@@ -1,6 +1,7 @@
 package com.adl.retrofitadl
 
 import android.app.PendingIntent.getService
+import android.content.Intent
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -54,6 +55,11 @@ class MainActivity : AppCompatActivity() {
 
                 })
 //        })
+
+        btn_create_news.setOnClickListener({
+            val intent = Intent(this, CreateNews::class.java)
+            startActivity(intent)
+        })
     }
 
     fun initToolbar() {
