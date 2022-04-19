@@ -17,10 +17,10 @@ class RetrofitConfig {
     }
     fun getRetrofit() : Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://www.omdbapi.com/")
+            .baseUrl("https://a856-180-254-73-128.ap.ngrok.io/cicool/")
             .client(getInterceptor())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    fun getService() = getRetrofit().create(IMovieDetail::class.java)
+    fun getService() = getRetrofit().create(INews::class.java)
 }

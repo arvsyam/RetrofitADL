@@ -9,9 +9,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adl.retrofitadl.adapter.MovieAdapter
-import com.adl.retrofitadl.model.OMDBResponse
-import com.adl.retrofitadl.model.SearchItem
-import com.adl.retrofitadl.model.SearchResponse
+import com.adl.retrofitadl.adapter.NewsAdapter
+import com.adl.retrofitadl.model.*
 import com.adl.retrofitadl.services.RetrofitConfig
 import com.panaceasoft.pskotlinmaterial.adapter.feature.list.education.FeatureListEducationCategoryList1Adapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,8 +23,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var listDataHeader: MutableList<String>
-    private lateinit var listDataChild: HashMap<String, List<SearchItem>>
-    private lateinit var featureListEducationCategoryList1Adapter: FeatureListEducationCategoryList1Adapter
+    private lateinit var listDataChild: HashMap<String, List<AdlNewsItem>>
+    private lateinit var newsAdapter: NewsAdapter
 
 
     var lstMovie = ArrayList<SearchItem?>()
@@ -39,16 +38,17 @@ class MainActivity : AppCompatActivity() {
         initToolbar()
 //        btn_search.setOnClickListener ({
             RetrofitConfig().getService()
-                .searchMovie("titanic")
-                .enqueue(object : Callback<SearchResponse>{
+                .getAll()
+                .enqueue(object : Callback<NewsResponse>{
                     override fun onResponse(
-                        call: Call<SearchResponse>,
-                        response: Response<SearchResponse>
+                        call: Call<NewsResponse>,
+                        response: Response<NewsResponse>
                     ) {
-                      dataGenerate(response.body()?.search as List<SearchItem>)
+                        val data:NewsResponse? = response.body()
+                      dataGenerate(data?.data?.adlNews as List<AdlNewsItem>)
                     }
 
-                    override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                         Toast.makeText(this@MainActivity,t.localizedMessage,Toast.LENGTH_LONG).show()
                     }
 
@@ -88,16 +88,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun dataGenerate ( list :List<SearchItem>){
+    fun dataGenerate ( listNews :List<AdlNewsItem>){
         listDataHeader = ArrayList()
         listDataChild = HashMap()
 
         listDataHeader.add("Result Movie")
-       listDataChild["Result Movie"] = list
+        listDataChild["Result Movie"] = listNews
 
-        featureListEducationCategoryList1Adapter = FeatureListEducationCategoryList1Adapter(this, listDataHeader, listDataChild)
+        newsAdapter = NewsAdapter(this, listDataHeader, listDataChild)
 
-        lvExp.setAdapter(featureListEducationCategoryList1Adapter)
+        lvExp.setAdapter(newsAdapter)
 
     }
 
