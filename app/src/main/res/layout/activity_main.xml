@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivityTemplate">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,17 +29,19 @@
             android:layout_height="wrap_content"
             android:text="search" />
 
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="create news" />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/searchTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcNews"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/news_holder">
 
     </androidx.recyclerview.widget.RecyclerView>
 

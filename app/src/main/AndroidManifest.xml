@@ -14,6 +14,9 @@
         android:theme="@style/Theme.RetrofitADL"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MainActivityTemplate"
+            android:exported="false" />
+        <activity
             android:name=".CreateNews"
             android:exported="false" />
         <activity
